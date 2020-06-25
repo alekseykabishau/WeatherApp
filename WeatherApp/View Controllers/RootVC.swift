@@ -10,6 +10,23 @@ import UIKit
 
 // TODO: - consider creting views sturcture and add child vc's view to them
 final class RootVC: UIViewController {
+	
+	var viewModel: RootViewModel? {
+		didSet {
+			guard let viewModel = viewModel else { return }
+			setupView(with: viewModel)
+		}
+	}
+	
+	private func setupView(with viewModel: RootViewModel) {
+		viewModel.didFetchWeatherData = { data, error in
+			if let error = error {
+				print("Not data available: \(error)")
+			} else if let data = data {
+				print(data)
+			}
+		}
+	}
 
 	private let dayVC: DayVC = {
 		guard let dayVC = UIStoryboard.main.instantiateViewController(identifier: DayVC.storyboardIdentifir) as? DayVC else { fatalError("Unable to init DayVC")}
@@ -28,8 +45,6 @@ final class RootVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupViewControllers()
-		
-		fetchWeatherData()
 	}
 	
 	
@@ -54,22 +69,6 @@ final class RootVC: UIViewController {
 		
 		dayVC.didMove(toParent: self)
 		forecastVC.didMove(toParent: self)
-	}
-	
-	
-	private func fetchWeatherData() {
-
-		let weatherRequest = WeatherRequest(baseUrl: WeatherService.authenticatedBaseUrl, location: Defaults.location)
-		
-		URLSession.shared.dataTask(with: weatherRequest.url) { (data, response, error) in
-			if let error = error {
-				print("request did fail: \(error)")
-			}
-			
-			guard let response = response as? HTTPURLResponse else { return }
-			print(response.statusCode)
-			
-		}.resume()
 	}
 }
 
