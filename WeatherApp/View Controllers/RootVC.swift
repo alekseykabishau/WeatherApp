@@ -11,6 +11,12 @@ import UIKit
 // TODO: - consider creting views sturcture and add child vc's view to them
 final class RootVC: UIViewController {
 	
+	
+	private enum AlertType {
+		case noWeatherDataAvailable
+	}
+	
+	
 	var viewModel: RootViewModel? {
 		didSet {
 			guard let viewModel = viewModel else { return }
@@ -19,11 +25,14 @@ final class RootVC: UIViewController {
 	}
 	
 	private func setupView(with viewModel: RootViewModel) {
-		viewModel.didFetchWeatherData = { data, error in
-			if let error = error {
-				print("Not data available: \(error)")
+		viewModel.didFetchWeatherData = { [weak self] data, error in
+			guard let self = self else { return }
+			if let _ = error {
+				self.showAlert(of: .noWeatherDataAvailable)
 			} else if let data = data {
 				print(data)
+			} else {
+				self.showAlert(of: .noWeatherDataAvailable)
 			}
 		}
 	}
@@ -69,6 +78,25 @@ final class RootVC: UIViewController {
 		
 		dayVC.didMove(toParent: self)
 		forecastVC.didMove(toParent: self)
+	}
+	
+	
+	private func showAlert(of type: AlertType) {
+		let title: String
+		let message: String
+		
+		switch type {
+			case .noWeatherDataAvailable:
+			title = "Unable to fetch weather data"
+			message = "The application is unable to get weather data. Please check you internet connection."
+		}
+		
+		DispatchQueue.main.async {
+			let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+			let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+			alertController.addAction(okAction)
+			self.present(alertController, animated: true, completion: nil)
+		}
 	}
 }
 

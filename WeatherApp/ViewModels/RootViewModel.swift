@@ -10,7 +10,12 @@ import Foundation
 
 class RootViewModel {
 	
-	var didFetchWeatherData: ((DarkSkyResponse?, Error?) -> Void)?
+	enum WeatherDataError: Error {
+		case noWeatherDataAvailable
+	}
+	
+	
+	var didFetchWeatherData: ((DarkSkyResponse?, WeatherDataError?) -> Void)?
 	
 	
 	init() {
@@ -26,7 +31,8 @@ class RootViewModel {
 			guard let self = self else { return }
 			
 			if let error = error {
-				self.didFetchWeatherData?(nil, error)
+				print("Unable to fetch weather data: \(error)")
+				self.didFetchWeatherData?(nil, .noWeatherDataAvailable)
 			} else if let data = data {
 				let decoder = JSONDecoder()
 				do {
@@ -34,10 +40,10 @@ class RootViewModel {
 					self.didFetchWeatherData?(response, nil)
 				} catch {
 					print("Unable to parse JSON: \(error)")
-					self.didFetchWeatherData?(nil, error)
+					self.didFetchWeatherData?(nil, .noWeatherDataAvailable)
 				}
 			} else {
-				self.didFetchWeatherData?(nil, nil)
+				self.didFetchWeatherData?(nil, .noWeatherDataAvailable)
 			}
 			
 			guard let response = response as? HTTPURLResponse else { return }
