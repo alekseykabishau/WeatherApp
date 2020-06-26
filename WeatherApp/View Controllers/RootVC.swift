@@ -68,7 +68,7 @@ final class RootVC: UIViewController {
 			dayVC.view.topAnchor.constraint(equalTo: view.topAnchor),
 			dayVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			dayVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			dayVC.view.heightAnchor.constraint(equalToConstant: Layout.DayView.height),
+			// height is set in storyboard using low priority constraint from the last element what provides "flexible" view height
 			
 			forecastVC.view.topAnchor.constraint(equalTo: dayVC.view.bottomAnchor),
 			forecastVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -96,16 +96,6 @@ final class RootVC: UIViewController {
 			let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
 			alertController.addAction(okAction)
 			self.present(alertController, animated: true, completion: nil)
-		}
-	}
-}
-
-
-extension RootVC {
-	
-	fileprivate enum Layout {
-		enum DayView {
-			static let height: CGFloat = 200.0
 		}
 	}
 }
