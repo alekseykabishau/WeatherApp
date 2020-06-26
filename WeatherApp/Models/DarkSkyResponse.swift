@@ -8,35 +8,35 @@
 
 import Foundation
 
-public struct DarkSkyResponse: Codable {
+struct DarkSkyResponse: Codable {
 	
-	public struct Conditions: Codable {
-		public let time: Date
-		public let icon: String
-		public let summary: String
-		public let windSpeed: Double
-		public let temperature: Double
+	struct Conditions: Codable {
+		let time: Date
+		let icon: String
+		let summary: String
+		let windSpeed: Double
+		let temperature: Double
 	}
 	
 	
-	public struct Daily: Codable {
-		public let data: [Conditions]
+	struct Daily: Codable {
+		let data: [Conditions]
 		
-		public struct Conditions: Codable {
-			public let time: Date
-			public let icon: String
-			public let windSpeed: Double
-			public let temperatureMin: Double
-			public let temperatureMax: Double
+		struct Conditions: Codable {
+			let time: Date
+			let icon: String
+			let windSpeed: Double
+			let temperatureMin: Double
+			let temperatureMax: Double
 		}
 	}
 	
 	
-	public let currently: Conditions
-	public let daily: Daily
+	let currently: Conditions
+	let daily: Daily
 	
 	
-	public let longitude: Double
-	public let latitude: Double
+	let longitude: Double
+	let latitude: Double
 }
 
