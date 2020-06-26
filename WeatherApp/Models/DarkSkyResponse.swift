@@ -40,3 +40,15 @@ struct DarkSkyResponse: Codable {
 	let latitude: Double
 }
 
+extension DarkSkyResponse: WeatherData {
+	var current: CurrentWeatherConditions {
+		return currently
+	}
+	
+	var forecast: [ForecastWeatherConditions] {
+		return daily.data
+	}
+}
+
+extension DarkSkyResponse.Conditions: CurrentWeatherConditions { }
+extension DarkSkyResponse.Daily.Conditions: ForecastWeatherConditions { } 

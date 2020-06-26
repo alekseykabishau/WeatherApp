@@ -21,6 +21,7 @@
 		5B6F6C8D24A458C4006B5E43 /* WeatherRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C8C24A458C4006B5E43 /* WeatherRequest.swift */; };
 		5B6F6C8F24A459F9006B5E43 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C8E24A459F9006B5E43 /* Configuration.swift */; };
 		5B6F6C9324A50DAE006B5E43 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C9224A50DAE006B5E43 /* RootViewModel.swift */; };
+		5B6F6C9624A59AC9006B5E43 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C9524A59AC9006B5E43 /* WeatherData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		5B6F6C8C24A458C4006B5E43 /* WeatherRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRequest.swift; sourceTree = "<group>"; };
 		5B6F6C8E24A459F9006B5E43 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		5B6F6C9224A50DAE006B5E43 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
+		5B6F6C9524A59AC9006B5E43 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		5B23448124A442C90067D224 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				5B6F6C9424A59ABE006B5E43 /* Protocols */,
 				5B6F6C9024A45E56006B5E43 /* Configuration */,
 				5B2344A224A449540067D224 /* Extensions */,
 				5B23449C24A443FD0067D224 /* Models */,
@@ -163,6 +166,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		5B6F6C9424A59ABE006B5E43 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5B6F6C9524A59AC9006B5E43 /* WeatherData.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -235,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B23449B24A443E70067D224 /* DarkSkyResponse.swift in Sources */,
+				5B6F6C9624A59AC9006B5E43 /* WeatherData.swift in Sources */,
 				5B23449F24A448550067D224 /* DayVC.swift in Sources */,
 				5B6F6C8924A449C3006B5E43 /* UIViewController+Ext.swift in Sources */,
 				5B23448724A442C90067D224 /* RootVC.swift in Sources */,

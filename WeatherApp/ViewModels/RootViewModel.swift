@@ -15,7 +15,7 @@ class RootViewModel {
 	}
 	
 	
-	var didFetchWeatherData: ((DarkSkyResponse?, WeatherDataError?) -> Void)?
+	var didFetchWeatherData: ((WeatherData?, WeatherDataError?) -> Void)?
 	
 	
 	init() {
