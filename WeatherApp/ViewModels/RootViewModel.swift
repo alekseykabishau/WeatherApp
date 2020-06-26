@@ -10,7 +10,7 @@ import Foundation
 
 class RootViewModel {
 	
-	var didFetchWeatherData: ((Data?, Error?) -> Void)?
+	var didFetchWeatherData: ((DarkSkyResponse?, Error?) -> Void)?
 	
 	
 	init() {
@@ -24,10 +24,18 @@ class RootViewModel {
 		
 		URLSession.shared.dataTask(with: weatherRequest.url) { [weak self] (data, response, error) in
 			guard let self = self else { return }
+			
 			if let error = error {
 				self.didFetchWeatherData?(nil, error)
 			} else if let data = data {
-				self.didFetchWeatherData?(data, nil)
+				let decoder = JSONDecoder()
+				do {
+					let response = try decoder.decode(DarkSkyResponse.self, from: data)
+					self.didFetchWeatherData?(response, nil)
+				} catch {
+					print("Unable to parse JSON: \(error)")
+					self.didFetchWeatherData?(nil, error)
+				}
 			} else {
 				self.didFetchWeatherData?(nil, nil)
 			}
