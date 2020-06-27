@@ -22,6 +22,7 @@
 		5B6F6C8F24A459F9006B5E43 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C8E24A459F9006B5E43 /* Configuration.swift */; };
 		5B6F6C9324A50DAE006B5E43 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C9224A50DAE006B5E43 /* RootViewModel.swift */; };
 		5B6F6C9624A59AC9006B5E43 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C9524A59AC9006B5E43 /* WeatherData.swift */; };
+		5BCB35CC24A6F05C00418840 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB35CB24A6F05C00418840 /* Styles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		5B6F6C8E24A459F9006B5E43 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		5B6F6C9224A50DAE006B5E43 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		5B6F6C9524A59AC9006B5E43 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		5BCB35CB24A6F05C00418840 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6F6C8E24A459F9006B5E43 /* Configuration.swift */,
+				5BCB35CB24A6F05C00418840 /* Styles.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			files = (
 				5B23449B24A443E70067D224 /* DarkSkyResponse.swift in Sources */,
 				5B6F6C9624A59AC9006B5E43 /* WeatherData.swift in Sources */,
+				5BCB35CC24A6F05C00418840 /* Styles.swift in Sources */,
 				5B23449F24A448550067D224 /* DayVC.swift in Sources */,
 				5B6F6C8924A449C3006B5E43 /* UIViewController+Ext.swift in Sources */,
 				5B23448724A442C90067D224 /* RootVC.swift in Sources */,
