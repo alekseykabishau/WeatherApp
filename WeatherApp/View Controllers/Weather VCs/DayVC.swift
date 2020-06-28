@@ -28,6 +28,7 @@ final class DayVC: UIViewController {
 	@IBOutlet var iconImageView: UIImageView! {
 		didSet {
 			iconImageView.contentMode = .scaleAspectFit
+			iconImageView.tintColor = Style.Colors.base
 		}
 	}
 	
@@ -52,6 +53,17 @@ final class DayVC: UIViewController {
 		}
 	}
 	
+	@IBOutlet var activityIndicator: UIActivityIndicatorView! {
+		didSet {
+			activityIndicator.startAnimating()
+			activityIndicator.hidesWhenStopped = true
+		}
+	}
+	
+	@IBOutlet var weatherViews: [UIView]! {
+		didSet { weatherViews.forEach { $0.isHidden = true } }
+	}
+	
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,16 +80,19 @@ final class DayVC: UIViewController {
 	
 	
 	private func setupViewModel(with viewModel: DayViewModel) {
+		activityIndicator.stopAnimating()
 		dateLabel.text = viewModel.date
 		timeLabel.text = viewModel.time
 		temperatureLabel.text = viewModel.temperature
 		windSpeedLabel.text = viewModel.wind
 		iconImageView.image = viewModel.icon
 		descriptionLabel.text = viewModel.summary
+		
+		weatherViews.forEach { $0.isHidden = false }
 	}
 	
 	
 	private func setupView() {
-		view.backgroundColor = .systemPink
+		view.backgroundColor = Style.Colors.lightBackgroundColor
 	}
 }

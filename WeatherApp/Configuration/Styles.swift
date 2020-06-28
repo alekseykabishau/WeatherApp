@@ -12,7 +12,8 @@ import UIKit
 enum Style {
 	
 	enum Colors {
-		static let base: UIColor = UIColor(red: 0.31, green: 0.72, blue: 0.83, alpha: 1.0)
+		static let base = UIColor(red: 0.31, green: 0.72, blue: 0.83, alpha: 1.0)
+		static let lightBackgroundColor = UIColor(red: 0.975, green: 0.975, blue: 0.975, alpha: 1.0)
 	}
 	
 	
