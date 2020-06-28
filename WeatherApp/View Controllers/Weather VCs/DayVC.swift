@@ -59,6 +59,24 @@ final class DayVC: UIViewController {
     }
 	
 	
+	var viewModel: DayViewModel? {
+		didSet {
+			guard let viewModel = viewModel else { return }
+			setupViewModel(with: viewModel)
+		}
+	}
+	
+	
+	private func setupViewModel(with viewModel: DayViewModel) {
+		dateLabel.text = viewModel.date
+		timeLabel.text = viewModel.time
+		temperatureLabel.text = viewModel.temperature
+		windSpeedLabel.text = viewModel.wind
+		iconImageView.image = viewModel.icon
+		descriptionLabel.text = viewModel.summary
+	}
+	
+	
 	private func setupView() {
 		view.backgroundColor = .systemPink
 	}

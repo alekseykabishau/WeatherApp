@@ -20,17 +20,20 @@ final class RootVC: UIViewController {
 	var viewModel: RootViewModel? {
 		didSet {
 			guard let viewModel = viewModel else { return }
-			setupView(with: viewModel)
+			setupViewModel(with: viewModel)
 		}
 	}
 	
-	private func setupView(with viewModel: RootViewModel) {
-		viewModel.didFetchWeatherData = { [weak self] data, error in
+	private func setupViewModel(with viewModel: RootViewModel) {
+		viewModel.didFetchWeatherData = { [weak self] weatherData, error in
 			guard let self = self else { return }
 			if let _ = error {
 				self.showAlert(of: .noWeatherDataAvailable)
-			} else if let data = data {
-				print(data)
+			} else if let weatherData = weatherData {
+				
+				let dayViewModel = DayViewModel(weatherData: weatherData.current)
+				self.dayVC.viewModel = dayViewModel
+				
 			} else {
 				self.showAlert(of: .noWeatherDataAvailable)
 			}
