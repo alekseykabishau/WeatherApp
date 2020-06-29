@@ -34,6 +34,9 @@ final class RootVC: UIViewController {
 				let dayViewModel = DayViewModel(weatherData: weatherData.current)
 				self.dayVC.viewModel = dayViewModel
 				
+				let forecastViewModel = ForecastViewModel(weatherData: weatherData.forecast)
+				self.forecastVC.viewModel = forecastViewModel
+				
 			} else {
 				self.showAlert(of: .noWeatherDataAvailable)
 			}
