@@ -31,6 +31,8 @@
 		5BE3FF7124A9720800BB1A40 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE3FF7024A9720800BB1A40 /* ForecastViewModel.swift */; };
 		5BE3FF7424A9877100BB1A40 /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE3FF7324A9877100BB1A40 /* ForecastCell.swift */; };
 		5BE3FF7624A98DAC00BB1A40 /* WeekDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE3FF7524A98DAC00BB1A40 /* WeekDayViewModel.swift */; };
+		5BE3FF7824AABBB200BB1A40 /* ForecastViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE3FF7724AABBB200BB1A40 /* ForecastViewModelTests.swift */; };
+		5BEFB49E24AADEC600D9A774 /* WeekDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEFB49D24AADEC600D9A774 /* WeekDayViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		5BE3FF7024A9720800BB1A40 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
 		5BE3FF7324A9877100BB1A40 /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
 		5BE3FF7524A98DAC00BB1A40 /* WeekDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayViewModel.swift; sourceTree = "<group>"; };
+		5BE3FF7724AABBB200BB1A40 /* ForecastViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModelTests.swift; sourceTree = "<group>"; };
+		5BEFB49D24AADEC600D9A774 /* WeekDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				5BE3FF6824A9500500BB1A40 /* DayViewModelTests.swift */,
+				5BE3FF7724AABBB200BB1A40 /* ForecastViewModelTests.swift */,
+				5BEFB49D24AADEC600D9A774 /* WeekDayViewModel.swift */,
 			);
 			path = "Test Cases";
 			sourceTree = "<group>";
@@ -398,8 +404,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BE3FF7824AABBB200BB1A40 /* ForecastViewModelTests.swift in Sources */,
 				5BE3FF6F24A9523300BB1A40 /* XCTestCase+Ext.swift in Sources */,
 				5BE3FF6924A9500500BB1A40 /* DayViewModelTests.swift in Sources */,
+				5BEFB49E24AADEC600D9A774 /* WeekDayViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
