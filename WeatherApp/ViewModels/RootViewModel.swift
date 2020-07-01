@@ -39,7 +39,7 @@ class RootViewModel: NSObject {
 	}
 	
 	
-	private func fetchWeatherData(for location: CLLocation) {
+	private func fetchWeatherData(for location: Location) {
 		print(#function)
 		let weatherRequest = WeatherRequest(baseUrl: WeatherService.authenticatedBaseUrl, location: location)
 		
@@ -89,7 +89,10 @@ extension RootViewModel: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		print(#function)
 		guard let location = locations.first else { return }
-		fetchWeatherData(for: location)
+		let latitude = location.coordinate.latitude
+		let longitude = location.coordinate.longitude
+		
+		fetchWeatherData(for: Location(latitude: latitude, longitude: longitude))
 	}
 	
 	
