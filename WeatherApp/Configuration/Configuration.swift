@@ -11,7 +11,7 @@ import CoreLocation
 
 enum Defaults {
 	
-	static var location = CLLocation(latitude: 40.2068, longitude: -75.0998)
+	static var location = CLLocation(latitude: 53.9006, longitude: -27.5590)
 }
 
 enum WeatherService {

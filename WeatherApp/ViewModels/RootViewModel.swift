@@ -7,25 +7,41 @@
 //
 
 import Foundation
+import CoreLocation
 
-class RootViewModel {
+class RootViewModel: NSObject {
 	
 	enum WeatherDataError: Error {
 		case noWeatherDataAvailable
+		case notAuthorizedToRequestLocation
 	}
 	
 	
 	var didFetchWeatherData: ((WeatherData?, WeatherDataError?) -> Void)?
 	
+	private lazy var locationManager: CLLocationManager = {
+		let locationManager = CLLocationManager()
+		locationManager.delegate = self
+		return locationManager
+	}()
 	
-	init() {
-		fetchWeatherData()
+	
+	override init() {
+		super.init()
+		fetchWeatherData(for: Defaults.location)
+		fetchLocation()
 	}
 	
 	
-	private func fetchWeatherData() {
-		
-		let weatherRequest = WeatherRequest(baseUrl: WeatherService.authenticatedBaseUrl, location: Defaults.location)
+	private func fetchLocation() {
+		print(#function)
+		locationManager.requestLocation() // one-time request
+	}
+	
+	
+	private func fetchWeatherData(for location: CLLocation) {
+		print(#function)
+		let weatherRequest = WeatherRequest(baseUrl: WeatherService.authenticatedBaseUrl, location: location)
 		
 		URLSession.shared.dataTask(with: weatherRequest.url) { [weak self] (data, response, error) in
 			guard let self = self else { return }
@@ -53,5 +69,31 @@ class RootViewModel {
 			}
 			
 		}.resume()
+	}
+}
+
+
+extension RootViewModel: CLLocationManagerDelegate {
+	
+	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+		if status == .notDetermined {
+			locationManager.requestWhenInUseAuthorization()
+		} else if status == .authorizedWhenInUse {
+			fetchLocation()
+		} else {
+			didFetchWeatherData?(nil, .notAuthorizedToRequestLocation)
+		}
+	}
+	
+	
+	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		print(#function)
+		guard let location = locations.first else { return }
+		fetchWeatherData(for: location)
+	}
+	
+	
+	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+		print("Unable to fetch location: \(error)")
 	}
 }
