@@ -44,7 +44,7 @@ class DayViewModelTests: XCTestCase {
 	func testImage() {
 		let viewModelImage = viewModel.icon
 		let imageDataViewModel = viewModelImage?.pngData()
-		let imageDataReference = UIImage(named: "clear-night")!.pngData()
+		let imageDataReference = UIImage(named: "cloudy")!.pngData()
 		
 		
 		XCTAssertNotNil(viewModelImage)
