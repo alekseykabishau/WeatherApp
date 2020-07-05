@@ -14,6 +14,7 @@ final class RootVC: UIViewController {
 	
 	private enum AlertType {
 		case noWeatherDataAvailable
+		case failedToRequestLocation
 		case notAuthorizedToRequestLocation
 	}
 	
@@ -32,6 +33,7 @@ final class RootVC: UIViewController {
 				let alertType: AlertType
 				switch error {
 					case .noWeatherDataAvailable: alertType = .noWeatherDataAvailable
+					case .failedToRequestLocation: alertType = .failedToRequestLocation
 					case .notAuthorizedToRequestLocation: alertType = .notAuthorizedToRequestLocation
 				}
 				self.showAlert(of: alertType)
@@ -100,11 +102,14 @@ final class RootVC: UIViewController {
 		
 		switch type {
 			case .noWeatherDataAvailable:
-			title = "Unable to fetch weather data"
-			message = "The application is unable to get weather data. Please check you internet connection."
+				title = "Unable to fetch weather data"
+				message = "The application is unable to get weather data. Please check you internet connection."
+			case .failedToRequestLocation:
+				title = "Unable to Fetch Weather Data for Your Location"
+				message = "Rainstorm is not able to fetch your current location due to a technical issue."
 			case .notAuthorizedToRequestLocation:
-			title = "Unable to get weather data for your location"
-			message = "Weather App is not authorized to use your location. You can grant location permission in the Settings"
+				title = "Unable to get weather data for your location"
+				message = "Weather App is not authorized to use your location. You can grant location permission in the Settings"
 		}
 		
 		DispatchQueue.main.async {

@@ -16,6 +16,8 @@
 		5B23449B24A443E70067D224 /* DarkSkyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B23449A24A443E70067D224 /* DarkSkyResponse.swift */; };
 		5B23449F24A448550067D224 /* DayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B23449E24A448550067D224 /* DayVC.swift */; };
 		5B2344A124A4487B0067D224 /* ForecastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2344A024A4487B0067D224 /* ForecastVC.swift */; };
+		5B5645EB24AE448800B0955C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5645EA24AE448800B0955C /* LocationManager.swift */; };
+		5B5645ED24AE44A700B0955C /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5645EC24AE44A700B0955C /* LocationService.swift */; };
 		5B6F6C8924A449C3006B5E43 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C8824A449C3006B5E43 /* UIViewController+Ext.swift */; };
 		5B6F6C8B24A44A36006B5E43 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C8A24A44A36006B5E43 /* UIStoryboard+Ext.swift */; };
 		5B6F6C8D24A458C4006B5E43 /* WeatherRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F6C8C24A458C4006B5E43 /* WeatherRequest.swift */; };
@@ -58,6 +60,8 @@
 		5B23449A24A443E70067D224 /* DarkSkyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyResponse.swift; sourceTree = "<group>"; };
 		5B23449E24A448550067D224 /* DayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayVC.swift; sourceTree = "<group>"; };
 		5B2344A024A4487B0067D224 /* ForecastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastVC.swift; sourceTree = "<group>"; };
+		5B5645EA24AE448800B0955C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5B5645EC24AE44A700B0955C /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		5B6F6C8824A449C3006B5E43 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		5B6F6C8A24A44A36006B5E43 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
 		5B6F6C8C24A458C4006B5E43 /* WeatherRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRequest.swift; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 		5B23448124A442C90067D224 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				5B5645E924AE447A00B0955C /* Managers */,
 				5BE3FF7224A9874A00BB1A40 /* Views */,
 				5B6F6C9424A59ABE006B5E43 /* Protocols */,
 				5B6F6C9024A45E56006B5E43 /* Configuration */,
@@ -198,6 +203,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		5B5645E924AE447A00B0955C /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5B5645EA24AE448800B0955C /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		5B6F6C9024A45E56006B5E43 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6F6C9524A59AC9006B5E43 /* WeatherData.swift */,
+				5B5645EC24AE44A700B0955C /* LocationService.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -389,11 +403,13 @@
 				5B23449F24A448550067D224 /* DayVC.swift in Sources */,
 				5BE3FF7124A9720800BB1A40 /* ForecastViewModel.swift in Sources */,
 				5B6F6C8924A449C3006B5E43 /* UIViewController+Ext.swift in Sources */,
+				5B5645ED24AE44A700B0955C /* LocationService.swift in Sources */,
 				5B23448724A442C90067D224 /* RootVC.swift in Sources */,
 				5B6F6C8B24A44A36006B5E43 /* UIStoryboard+Ext.swift in Sources */,
 				5B23448324A442C90067D224 /* AppDelegate.swift in Sources */,
 				5B6F6C8F24A459F9006B5E43 /* Configuration.swift in Sources */,
 				5B6F6C8D24A458C4006B5E43 /* WeatherRequest.swift in Sources */,
+				5B5645EB24AE448800B0955C /* LocationManager.swift in Sources */,
 				5B6F6C9324A50DAE006B5E43 /* RootViewModel.swift in Sources */,
 				5BE3FF7624A98DAC00BB1A40 /* WeekDayViewModel.swift in Sources */,
 				5BA3ADA924ACF5D50040021B /* Location.swift in Sources */,

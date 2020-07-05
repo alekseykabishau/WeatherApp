@@ -7,27 +7,23 @@
 //
 
 import Foundation
-import CoreLocation
 
-class RootViewModel: NSObject {
+class RootViewModel {
 	
 	enum WeatherDataError: Error {
 		case noWeatherDataAvailable
+		case failedToRequestLocation
 		case notAuthorizedToRequestLocation
 	}
 	
+	let locationService: LocationService
 	
 	var didFetchWeatherData: ((WeatherData?, WeatherDataError?) -> Void)?
 	
-	private lazy var locationManager: CLLocationManager = {
-		let locationManager = CLLocationManager()
-		locationManager.delegate = self
-		return locationManager
-	}()
 	
-	
-	override init() {
-		super.init()
+	init(locationService: LocationService) {
+		self.locationService = locationService
+		
 		fetchWeatherData(for: Defaults.location)
 		fetchLocation()
 	}
@@ -35,7 +31,20 @@ class RootViewModel: NSObject {
 	
 	private func fetchLocation() {
 		print(#function)
-		locationManager.requestLocation() // one-time request
+		
+		locationService.fetchLocation { [weak self] location, error in
+			guard let self = self else { return }
+			
+			if let error = error {
+				print("Unable to Fetch Location (\(error))")
+				self.didFetchWeatherData?(nil, .notAuthorizedToRequestLocation)
+			} else if let location = location {
+				self.fetchWeatherData(for: location)
+			} else {
+				print("RootViewModel. Unable to fetch location")
+				self.didFetchWeatherData?(nil, .failedToRequestLocation)
+			}
+		}
 	}
 	
 	
@@ -66,37 +75,9 @@ class RootViewModel: NSObject {
 				
 				guard let response = response as? HTTPURLResponse else { return }
 				print(response.statusCode)
+				print(weatherRequest.url)
 			}
 			
 		}.resume()
-	}
-}
-
-
-extension RootViewModel: CLLocationManagerDelegate {
-	
-	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-		if status == .notDetermined {
-			locationManager.requestWhenInUseAuthorization()
-		} else if status == .authorizedWhenInUse {
-			fetchLocation()
-		} else {
-			didFetchWeatherData?(nil, .notAuthorizedToRequestLocation)
-		}
-	}
-	
-	
-	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		print(#function)
-		guard let location = locations.first else { return }
-		let latitude = location.coordinate.latitude
-		let longitude = location.coordinate.longitude
-		
-		fetchWeatherData(for: Location(latitude: latitude, longitude: longitude))
-	}
-	
-	
-	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-		print("Unable to fetch location: \(error)")
 	}
 }

@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 		guard let _ = (scene as? UIWindowScene) else { return }
 		guard let rootVC = window?.rootViewController as? RootVC else { fatalError("Unexpected Root VC")}
-		rootVC.viewModel = RootViewModel()
+		rootVC.viewModel = RootViewModel(locationService: LocationManager())
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
