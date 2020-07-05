@@ -18,7 +18,7 @@ class RootViewModel {
 	
 	let locationService: LocationService
 	
-	var didFetchWeatherData: ((WeatherData?, WeatherDataError?) -> Void)?
+	var didFetchWeatherData: ((Result<WeatherData, WeatherDataError>) -> Void)?
 	
 	
 	init(locationService: LocationService) {
@@ -32,17 +32,14 @@ class RootViewModel {
 	private func fetchLocation() {
 		print(#function)
 		
-		locationService.fetchLocation { [weak self] location, error in
+		locationService.fetchLocation { [weak self] result in
 			guard let self = self else { return }
 			
-			if let error = error {
-				print("Unable to Fetch Location (\(error))")
-				self.didFetchWeatherData?(nil, .notAuthorizedToRequestLocation)
-			} else if let location = location {
-				self.fetchWeatherData(for: location)
-			} else {
-				print("RootViewModel. Unable to fetch location")
-				self.didFetchWeatherData?(nil, .failedToRequestLocation)
+			switch result {
+				case .success(let location):
+					self.fetchWeatherData(for: location)
+				case .failure(_):
+					self.didFetchWeatherData?(.failure(.notAuthorizedToRequestLocation))
 			}
 		}
 	}
@@ -58,19 +55,19 @@ class RootViewModel {
 			DispatchQueue.main.async {
 				if let error = error {
 					print("Unable to fetch weather data: \(error)")
-					self.didFetchWeatherData?(nil, .noWeatherDataAvailable)
+					self.didFetchWeatherData?(.failure(.noWeatherDataAvailable))
 				} else if let data = data {
 					let decoder = JSONDecoder()
 					decoder.dateDecodingStrategy = .secondsSince1970
 					do {
 						let response = try decoder.decode(DarkSkyResponse.self, from: data)
-						self.didFetchWeatherData?(response, nil)
+						self.didFetchWeatherData?(.success(response))
 					} catch {
 						print("Unable to parse JSON: \(error)")
-						self.didFetchWeatherData?(nil, .noWeatherDataAvailable)
+						self.didFetchWeatherData?(.failure(.noWeatherDataAvailable))
 					}
 				} else {
-					self.didFetchWeatherData?(nil, .noWeatherDataAvailable)
+					self.didFetchWeatherData?(.failure(.noWeatherDataAvailable))
 				}
 				
 				guard let response = response as? HTTPURLResponse else { return }

@@ -40,7 +40,7 @@ extension LocationManager: CLLocationManagerDelegate {
 			locationManager.requestLocation()
 			print("requested location from didChangeAuthorization")
 		} else {
-			didReceiveLocation?(nil, .notAuthorizedToRequestLocation)
+			didReceiveLocation?(.failure(.notAuthorizedToRequestLocation))
 			didReceiveLocation = nil
 		}
 	}
@@ -49,7 +49,7 @@ extension LocationManager: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		print(#function)
 		guard let location = locations.first else { return }
-		didReceiveLocation?(Location(locaton: location), nil)
+		didReceiveLocation?(.success(Location(locaton: location)))
 		didReceiveLocation = nil
 	}
 	

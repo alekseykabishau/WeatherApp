@@ -11,12 +11,12 @@ import Foundation
 
 protocol LocationService {
 	
-	typealias FetchLocationCompletion = (Location?, LocationServiceError?) -> Void
+	typealias FetchLocationCompletion = (Result<Location, LocationServiceError>) -> Void
 	
 	func fetchLocation(completion: @escaping FetchLocationCompletion)
 }
 
 // specific to protocol error type
-enum LocationServiceError {
+enum LocationServiceError: Error {
 	case notAuthorizedToRequestLocation
 }

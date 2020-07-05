@@ -27,31 +27,31 @@ final class RootVC: UIViewController {
 	}
 	
 	private func setupViewModel(with viewModel: RootViewModel) {
-		viewModel.didFetchWeatherData = { [weak self] weatherData, error in
+		viewModel.didFetchWeatherData = { [weak self] result in
 			guard let self = self else { return }
-			if let error = error {
-				let alertType: AlertType
-				switch error {
-					case .noWeatherDataAvailable: alertType = .noWeatherDataAvailable
-					case .failedToRequestLocation: alertType = .failedToRequestLocation
-					case .notAuthorizedToRequestLocation: alertType = .notAuthorizedToRequestLocation
-				}
-				self.showAlert(of: alertType)
+			
+			switch result {
+				case .success(let weatherData):
+					
+					let dayViewModel = DayViewModel(weatherData: weatherData.current)
+					self.dayVC.viewModel = dayViewModel
+					
+					let forecastViewModel = ForecastViewModel(weatherData: weatherData.forecast)
+					self.forecastVC.viewModel = forecastViewModel
 				
-			} else if let weatherData = weatherData {
-				
-				let dayViewModel = DayViewModel(weatherData: weatherData.current)
-				self.dayVC.viewModel = dayViewModel
-				
-				let forecastViewModel = ForecastViewModel(weatherData: weatherData.forecast)
-				self.forecastVC.viewModel = forecastViewModel
-				
-			} else {
-				self.showAlert(of: .noWeatherDataAvailable)
+				case .failure(let error):
+					let alertType: AlertType
+					
+					switch error {
+						case .noWeatherDataAvailable: alertType = .noWeatherDataAvailable
+						case .failedToRequestLocation: alertType = .failedToRequestLocation
+						case .notAuthorizedToRequestLocation: alertType = .notAuthorizedToRequestLocation
+					}
+					self.showAlert(of: alertType)
 			}
 		}
 	}
-
+	
 	private let dayVC: DayVC = {
 		guard let dayVC = UIStoryboard.main.instantiateViewController(identifier: DayVC.storyboardIdentifir) as? DayVC else { fatalError("Unable to init DayVC")}
 		dayVC.view.translatesAutoresizingMaskIntoConstraints = false
