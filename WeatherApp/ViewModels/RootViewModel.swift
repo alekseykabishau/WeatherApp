@@ -6,7 +6,7 @@
 //  Copyright © 2020 Aleksey Kabishau. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class RootViewModel {
 	
@@ -25,6 +25,7 @@ class RootViewModel {
 		self.locationService = locationService
 		
 		fetchWeatherData(for: Defaults.location)
+		setupNotificationHandling()
 		fetchLocation()
 	}
 	
@@ -62,6 +63,7 @@ class RootViewModel {
 					do {
 						let response = try decoder.decode(DarkSkyResponse.self, from: data)
 						self.didFetchWeatherData?(.success(response))
+						UserDefaults.weatherDataTimeStamp = Date()
 					} catch {
 						print("Unable to parse JSON: \(error)")
 						self.didFetchWeatherData?(.failure(.noWeatherDataAvailable))
@@ -76,5 +78,30 @@ class RootViewModel {
 			}
 			
 		}.resume()
+	}
+	
+	
+	private func setupNotificationHandling() {
+		NotificationCenter.default.addObserver(
+			forName: UIApplication.willEnterForegroundNotification,
+			object: nil,
+			queue: OperationQueue.main) { [weak self] (_) in
+				guard let self = self else { return }
+				guard let weatherDataTimeStamp = UserDefaults.weatherDataTimeStamp else {
+					self.refresh()
+					return
+				}
+				
+				
+				if Date().timeIntervalSince(weatherDataTimeStamp) > Configuration.refreshThreshold {
+					self.refresh()
+				}
+		}
+	}
+
+	
+	private func refresh() {
+		print(#function)
+		fetchLocation()
 	}
 }
