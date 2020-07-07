@@ -100,7 +100,7 @@ class RootViewModel {
 	}
 
 	
-	private func refresh() {
+	func refresh() {
 		print(#function)
 		fetchLocation()
 	}

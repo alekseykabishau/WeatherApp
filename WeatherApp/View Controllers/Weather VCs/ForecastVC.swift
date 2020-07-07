@@ -8,12 +8,21 @@
 
 import UIKit
 
+//TODO: - Replace delegate with closure
+protocol ForecastVCDelegate: class {
+	func controlDidRefresh(_ controller: ForecastVC) // best practice to include delegeting object as the first argument - why?
+}
+
 final class ForecastVC: UIViewController {
+	
+	weak var delegate: ForecastVCDelegate?
 	
 	var viewModel: ForecastViewModel? {
 		didSet {
-			guard let viewModel = viewModel else { return }
-			setupViewModel(with: viewModel)
+			refreshControl.endRefreshing() // setting vm means data received
+			if let viewModel = viewModel {
+				setupViewModel(with: viewModel)
+			}
 		}
 	}
 	
@@ -26,6 +35,7 @@ final class ForecastVC: UIViewController {
 			tableView.estimatedRowHeight = 44.0
 			tableView.rowHeight = UITableView.automaticDimension
 			tableView.showsVerticalScrollIndicator = false
+			tableView.refreshControl = refreshControl
 		}
 	}
 	
@@ -37,11 +47,24 @@ final class ForecastVC: UIViewController {
 		}
 	}
 	
+	private lazy var refreshControl: UIRefreshControl = {
+		let refreshControl = UIRefreshControl()
+		refreshControl.tintColor = Style.Colors.base
+		refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+		return refreshControl
+	}()
+	
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupView()
     }
+	
+	
+	@objc private func refresh(_ sender: UIRefreshControl) {
+		print(#function)
+		delegate?.controlDidRefresh(self)
+	}
 	
 	
 	private func setupViewModel(with viewModel: ForecastViewModel) {

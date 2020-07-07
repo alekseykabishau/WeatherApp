@@ -48,6 +48,10 @@ final class RootVC: UIViewController {
 						case .notAuthorizedToRequestLocation: alertType = .notAuthorizedToRequestLocation
 					}
 					self.showAlert(of: alertType)
+					
+					// for hiding refresh controller in case of manual refresh and issues with the response
+					self.dayVC.viewModel = nil
+					self.forecastVC.viewModel = nil
 			}
 		}
 	}
@@ -59,8 +63,9 @@ final class RootVC: UIViewController {
 	}()
 	
 	
-	private let forecastVC: ForecastVC = {
+	private lazy var forecastVC: ForecastVC = {
 		guard let forecastVC = UIStoryboard.main.instantiateViewController(identifier: ForecastVC.storyboardIdentifir) as? ForecastVC else { fatalError("Unable to init ForecastVC")}
+		forecastVC.delegate = self
 		forecastVC.view.translatesAutoresizingMaskIntoConstraints = false
 		return forecastVC
 	}()
@@ -118,5 +123,12 @@ final class RootVC: UIViewController {
 			alertController.addAction(okAction)
 			self.present(alertController, animated: true, completion: nil)
 		}
+	}
+}
+
+extension RootVC: ForecastVCDelegate {
+	
+	func controlDidRefresh(_ controller: ForecastVC) {
+		viewModel?.refresh()
 	}
 }
