@@ -74,6 +74,7 @@ final class RootVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupViewControllers()
+		viewModel?.refresh()
 	}
 	
 	

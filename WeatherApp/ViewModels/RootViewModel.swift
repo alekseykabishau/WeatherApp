@@ -24,9 +24,9 @@ class RootViewModel {
 	init(locationService: LocationService) {
 		self.locationService = locationService
 		
-		fetchWeatherData(for: Defaults.location)
+		//fetchWeatherData(for: Defaults.location)
 		setupNotificationHandling()
-		fetchLocation()
+		//fetchLocation()
 	}
 	
 	
